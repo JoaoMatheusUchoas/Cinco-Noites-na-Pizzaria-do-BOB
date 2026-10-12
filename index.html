@@ -6,7 +6,7 @@
 <title>Cinco Noites na Pizzaria do BOB 3D</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Nosifer&family=VT323&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Nosifer&family=Special+Elite&family=VT323&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css" onerror="this.onerror=null;this.href='style.css'">
 </head>
 <body>
@@ -23,16 +23,23 @@
 </section>
 
 <section id="menu" class="screen">
-  <h1 class="title">Cinco Noites na Pizzaria do BOB</h1>
-  <p class="subtitle">Vigia noturno. Das 12h às 6h. Boa sorte.</p>
-  <button class="mbtn" id="bNew">Novo jogo</button>
-  <button class="mbtn" id="bCont">Continuar</button>
-  <button class="mbtn" id="bSix">Noite 6</button>
-  <button class="mbtn" id="bCustom">Noite personalizada</button>
-  <button class="mbtn" id="bExtras">Extras</button>
-  <div id="nightPick"></div>
-  <div id="stars"></div>
-  <p class="hint">Dica: tem um nariz no pôster do escritório.</p>
+  <div class="menuLeft">
+    <div class="logo">
+      <span class="l1">Cinco noites na</span>
+      <h1 class="title">Pizzaria do BOB</h1>
+      <span class="l2">estrelando a Liga Mistério</span>
+    </div>
+    <nav class="mnav">
+      <button class="mbtn" id="bNew"><i>▶</i><span>Novo jogo<small>Começar da Noite 1</small></span></button>
+      <button class="mbtn" id="bCont"><i>⟲</i><span>Continuar<small id="contSub"></small></span></button>
+      <button class="mbtn danger" id="bSix"><i>☠</i><span>Noite 6<small>O Sr. Gargalhada espera</small></span></button>
+      <button class="mbtn" id="bCustom"><i>⚙</i><span>Noite personalizada<small>Escolha quem acorda</small></span></button>
+      <button class="mbtn" id="bExtras"><i>★</i><span>Extras<small>Animatrônicos e controles</small></span></button>
+    </nav>
+    <div id="nightPick"></div>
+    <div id="stars"></div>
+  </div>
+  <div class="menuFoot">🎧 Jogue com fone de ouvido · os passos mostram de onde eles vêm</div>
 </section>
 
 <section id="extras" class="screen">
@@ -48,7 +55,10 @@
       <p>Olhar: mouse nas bordas, setas <kbd>←</kbd> <kbd>→</kbd> ou arraste a tela</p>
       <p><kbd>A</kbd> porta esquerda · <kbd>D</kbd> porta direita · <kbd>S</kbd> câmeras · <kbd>1</kbd>–<kbd>8</kbd> trocar câmera</p>
       <p>Segure <kbd>F</kbd> lanterna no corredor · segure <kbd>V</kbd> lanterna no duto · segure <kbd>Espaço</kbd> máscara</p>
+      <p>Segure <kbd>G</kbd> na CAM 3 para girar a cadeira do Zig</p>
       <p><kbd>E</kbd> choque (Noite 6, com as câmeras abertas)</p>
+      <p><kbd>L</kbd> liga a luz da câmera (gasta energia)</p>
+      <p><kbd>Ctrl</kbd> + <kbd>N</kbd> pula a noite atual (no Chrome use <kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>N</kbd>)</p>
     </div>
     <p style="margin-top:20px"><button class="pbtn alt" id="bExtBack">Voltar ao menu</button></p>
   </div>
@@ -65,30 +75,74 @@
   </div>
 </section>
 
-<section id="intro" class="screen center">
-  <div class="panel">
-    <div class="big" id="introNight">NOITE 1</div>
-    <div style="font-size:28px;color:var(--dim)" id="introSub">12:00 AM</div>
-    <div class="call" id="introCall"></div>
-    <button class="pbtn" id="bStart">Começar o turno</button>
-    <button class="pbtn alt" id="bIntroBack">Menu</button>
+<section id="intro" class="screen">
+  <div class="introWrap">
+    <div id="phone"><svg viewBox="0 0 120 245" aria-hidden="true">
+      <rect x="84" y="2" width="9" height="40" rx="4" fill="#18191b"/><circle cx="88.5" cy="4" r="5" fill="#222"/>
+      <rect x="8" y="30" width="104" height="210" rx="20" fill="#232528" stroke="#0c0c0d" stroke-width="3"/>
+      <rect x="14" y="36" width="92" height="198" rx="16" fill="#34373c"/>
+      <rect x="44" y="44" width="32" height="5" rx="2.5" fill="#121315"/>
+      <rect x="20" y="56" width="80" height="66" rx="6" fill="#0d140c" stroke="#08090a" stroke-width="2"/>
+      <rect id="phScreen" x="25" y="61" width="70" height="56" rx="2" fill="#8fc46a"/>
+      <rect x="25" y="61" width="70" height="9" fill="#7aae58"/>
+      <text x="29" y="68" font-family="VT323,monospace" font-size="8" fill="#16300f">▂▄▆ 02:00</text>
+      <text id="phName" x="60" y="86" text-anchor="middle" font-family="VT323,monospace" font-size="14" fill="#10260c">VALDIR</text>
+      <text id="phStatus" x="60" y="99" text-anchor="middle" font-family="VT323,monospace" font-size="10" fill="#1e3a16">chamando...</text>
+      <text id="phTime" x="60" y="111" text-anchor="middle" font-family="VT323,monospace" font-size="10" fill="#1e3a16"></text>
+      <rect x="22" y="128" width="30" height="14" rx="7" fill="#2f8a3c"/><rect x="68" y="128" width="30" height="14" rx="7" fill="#a52a2a"/>
+      <rect x="48" y="126" width="24" height="18" rx="6" fill="#4a4e55" stroke="#1a1b1e"/>
+      <rect x="22" y="150" width="22" height="15" rx="5" fill="#4a4e55" stroke="#1a1b1e"/><text x="33" y="161" text-anchor="middle" font-family="VT323,monospace" font-size="11" fill="#cfd2d6">1</text><rect x="49" y="150" width="22" height="15" rx="5" fill="#4a4e55" stroke="#1a1b1e"/><text x="60" y="161" text-anchor="middle" font-family="VT323,monospace" font-size="11" fill="#cfd2d6">2</text><rect x="76" y="150" width="22" height="15" rx="5" fill="#4a4e55" stroke="#1a1b1e"/><text x="87" y="161" text-anchor="middle" font-family="VT323,monospace" font-size="11" fill="#cfd2d6">3</text><rect x="22" y="170" width="22" height="15" rx="5" fill="#4a4e55" stroke="#1a1b1e"/><text x="33" y="181" text-anchor="middle" font-family="VT323,monospace" font-size="11" fill="#cfd2d6">4</text><rect x="49" y="170" width="22" height="15" rx="5" fill="#4a4e55" stroke="#1a1b1e"/><text x="60" y="181" text-anchor="middle" font-family="VT323,monospace" font-size="11" fill="#cfd2d6">5</text><rect x="76" y="170" width="22" height="15" rx="5" fill="#4a4e55" stroke="#1a1b1e"/><text x="87" y="181" text-anchor="middle" font-family="VT323,monospace" font-size="11" fill="#cfd2d6">6</text><rect x="22" y="190" width="22" height="15" rx="5" fill="#4a4e55" stroke="#1a1b1e"/><text x="33" y="201" text-anchor="middle" font-family="VT323,monospace" font-size="11" fill="#cfd2d6">7</text><rect x="49" y="190" width="22" height="15" rx="5" fill="#4a4e55" stroke="#1a1b1e"/><text x="60" y="201" text-anchor="middle" font-family="VT323,monospace" font-size="11" fill="#cfd2d6">8</text><rect x="76" y="190" width="22" height="15" rx="5" fill="#4a4e55" stroke="#1a1b1e"/><text x="87" y="201" text-anchor="middle" font-family="VT323,monospace" font-size="11" fill="#cfd2d6">9</text><rect x="22" y="210" width="22" height="15" rx="5" fill="#4a4e55" stroke="#1a1b1e"/><text x="33" y="221" text-anchor="middle" font-family="VT323,monospace" font-size="11" fill="#cfd2d6">*</text><rect x="49" y="210" width="22" height="15" rx="5" fill="#4a4e55" stroke="#1a1b1e"/><text x="60" y="221" text-anchor="middle" font-family="VT323,monospace" font-size="11" fill="#cfd2d6">0</text><rect x="76" y="210" width="22" height="15" rx="5" fill="#4a4e55" stroke="#1a1b1e"/><text x="87" y="221" text-anchor="middle" font-family="VT323,monospace" font-size="11" fill="#cfd2d6">#</text>
+    </svg><div class="ringWaves"><i></i><i></i><i></i></div></div>
+    <div id="callBox" class="panel">
+      <div class="big" id="introNight">NOITE 1</div>
+      <div id="introSub">12:00 AM</div>
+      <div class="call" id="introCall"></div>
+      <div class="callBtns">
+        <button class="pbtn ans" id="bAnswer">📞 Atender</button>
+        <button class="pbtn" id="bStart">Começar o turno</button>
+        <button class="pbtn alt" id="bSkip">Pular ⏭</button>
+        <button class="pbtn alt" id="bIntroBack">Menu</button>
+      </div>
+      <p class="tapHint">Toque no texto para mostrar tudo de uma vez</p>
+    </div>
   </div>
 </section>
 
 <section id="game" class="screen">
   <div id="look"></div>
-  <div id="maskOv"><svg viewBox="0 0 160 90" preserveAspectRatio="xMidYMid slice"><defs><mask id="eyesM"><rect width="160" height="90" fill="#fff"/><ellipse cx="58" cy="42" rx="18" ry="11" fill="#000"/><ellipse cx="102" cy="42" rx="18" ry="11" fill="#000"/></mask></defs><rect width="160" height="90" fill="#1a0707" mask="url(#eyesM)"/><path d="M40 42 Q58 26 76 42 M84 42 Q102 26 120 42" stroke="#5c1a1f" stroke-width="2" fill="none"/></svg></div>
+  <div id="maskOv"><svg viewBox="0 0 160 90" preserveAspectRatio="xMidYMid slice">
+    <defs>
+      <radialGradient id="mvig" cx="50%" cy="48%" r="72%"><stop offset="35%" stop-color="#000" stop-opacity="0"/><stop offset="100%" stop-color="#000" stop-opacity=".95"/></radialGradient>
+      <linearGradient id="mplast" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2c4a7a"/><stop offset=".55" stop-color="#1a2c4a"/><stop offset="1" stop-color="#0a1222"/></linearGradient>
+      <radialGradient id="fog" cx="50%" cy="100%" r="60%"><stop offset="0" stop-color="#dfe8ff" stop-opacity=".55"/><stop offset="1" stop-color="#dfe8ff" stop-opacity="0"/></radialGradient>
+      <mask id="eyesM"><rect width="160" height="90" fill="#fff"/><path d="M36 43 Q50 27 72 38 Q66 52 46 51 Q38 49 36 43Z" fill="#000"/><path d="M124 43 Q110 27 88 38 Q94 52 114 51 Q122 49 124 43Z" fill="#000"/></mask>
+    </defs>
+    <rect width="160" height="90" fill="url(#mplast)" mask="url(#eyesM)"/>
+    <g fill="none" stroke-linecap="round">
+      <path d="M36 43 Q50 27 72 38 Q66 52 46 51 Q38 49 36 43Z M124 43 Q110 27 88 38 Q94 52 114 51 Q122 49 124 43Z" stroke="#0a0f1a" stroke-width="3"/>
+      <path d="M38 41 Q50 29 70 38 M122 41 Q110 29 90 38" stroke="#5f86c2" stroke-width="1" opacity=".7"/>
+      <path d="M30 30 Q46 18 70 27 M130 30 Q114 18 90 27" stroke="#0a0f1a" stroke-width="3"/>
+      <path d="M58 72 Q80 84 102 72" stroke="#0a0f1a" stroke-width="2.5"/>
+      <path d="M62 72 l3 4 l3 -3.5 l3 4 l3 -3.5 l3 4 l3 -3.5 l3 4 l3 -3.5 l3 4 l3 -3.5 l3 3.5" stroke="#d8d2c4" stroke-width="1"/>
+      <path d="M78 52 Q80 60 82 52" stroke="#0a0f1a" stroke-width="2"/>
+      <path d="M118 8 l-6 10 l4 4 l-8 12 M18 70 l9 -6 l2 5 l8 -4" stroke="#05080e" stroke-width=".8" opacity=".8"/>
+    </g>
+    <circle cx="80" cy="56" r="4.5" fill="#0b0b0e"/>
+    <ellipse cx="38" cy="62" rx="9" ry="5" fill="#c84a6a" opacity=".25"/><ellipse cx="122" cy="62" rx="9" ry="5" fill="#c84a6a" opacity=".25"/>
+    <rect class="breathFog" width="160" height="90" fill="url(#fog)"/>
+    <rect width="160" height="90" fill="url(#mvig)"/>
+  </svg><div class="maskTag">🎭 MÁSCARA</div></div>
   <div id="danger"></div>
   <div id="itsme">SOU EU</div>
   <div id="camsUI" class="hidden">
     <div id="kitchenMsg" class="hidden">CÂMERA DESATIVADA<br>apenas áudio</div>
-    <div id="camLbl">CAM 1</div><div class="rec">● REC</div>
-    <div id="camSide"><div id="map"></div><button id="shockBtn" class="hidden">⚡ Choque (E)</button></div>
+    <div class="corner c1"></div><div class="corner c2"></div><div class="corner c3"></div><div class="corner c4"></div><div id="camLbl">CAM 1</div><div class="rec">● REC</div><div id="camTime"></div><div id="camHint">Está escuro demais? Aperte <b>L</b> para acender a luz da câmera</div>
+    <div id="camSide"><div id="map"></div><div id="zigBox" class="hidden"><div class="zlbl">Cadeira do ZIG</div><div class="zbar"><div id="zigFill"></div></div><button id="crankBtn">🔄 Girar (segure G)</button></div><button id="camLightBtn">💡 Luz da câmera (L)</button><button id="shockBtn" class="hidden">⚡ Choque (E)</button></div>
   </div>
   <div id="hud">
     <div>
       <div id="nightLbl">Noite 1</div>
-      <div id="powerLbl">Energia: 100%</div>
+      <div id="powerBox"><span class="pl">ENERGIA</span><div class="bat"><div id="powerFill"></div></div><span id="powerLbl">100%</span></div>
       <div id="usage"></div>
       <button id="quitBtn">Sair</button>
       <div id="lookHint">Arraste ou use ← → para olhar</div>
@@ -97,21 +151,14 @@
   </div>
   <div id="bossBar" class="hidden"><div class="bn">SR. GARGALHADA</div><div class="bt"><div id="bossFill"></div></div></div>
   <div id="toast"></div>
-  <div id="controls">
-    <button class="ctl" data-act="doorL"><div class="ic">🚪</div><span>Porta E</span><small>A</small><div class="heat"></div></button>
-    <button class="ctl hold" data-act="hall"><div class="ic">🔦</div><span>Corredor</span><small>segure F</small></button>
-    <button class="ctl hold" data-act="vent"><div class="ic">🔦</div><span>Duto</span><small>segure V</small></button>
-    <button class="ctl hold" data-act="mask"><div class="ic">🎭</div><span>Máscara</span><small>segure Espaço</small></button>
-    <button class="ctl" data-act="cams"><div class="ic">📷</div><span>Câmeras</span><small>S</small></button>
-    <button class="ctl" data-act="doorR"><div class="ic">🚪</div><span>Porta D</span><small>D</small><div class="heat"></div></button>
-  </div>
+  <div id="controls"><div class="cpanel"><button class="ctl" data-act="doorL"><span class="led"></span><svg viewBox="0 0 24 24"><path d="M4 21V3h16v18" fill="none" stroke="currentColor" stroke-width="2"/><path d="M7 21V6h10v15z" fill="currentColor" opacity=".35"/><path d="M7 9h10M7 12h10M7 15h10M7 18h10" stroke="currentColor" stroke-width="1"/></svg><span class="lbl">Porta Esq.</span><kbd>A</kbd><div class=heat></div></button><button class="ctl hold" data-act="hall"><span class="led"></span><svg viewBox="0 0 24 24"><path d="M3 9l6-3v12l-6-3z" fill="currentColor" opacity=".35"/><rect x="9" y="7" width="12" height="10" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M13 12h4" stroke="currentColor" stroke-width="2"/></svg><span class="lbl">Lanterna</span><kbd>F</kbd></button><button class="ctl hold" data-act="vent"><span class="led"></span><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M6 9h12M6 12h12M6 15h12" stroke="currentColor" stroke-width="1.6"/></svg><span class="lbl">Duto</span><kbd>V</kbd></button><button class="ctl hold" data-act="mask"><span class="led"></span><svg viewBox="0 0 24 24"><path d="M3 6c3-2 15-2 18 0 0 8-4 14-9 14S3 14 3 6z" fill="currentColor" opacity=".3" stroke="currentColor" stroke-width="2"/><path d="M6 10q2-2 4 0q-2 2-4 0zM14 10q2-2 4 0q-2 2-4 0z" fill="currentColor"/><path d="M9 15q3 2 6 0" stroke="currentColor" stroke-width="1.6" fill="none"/></svg><span class="lbl">Máscara</span><kbd>ESPAÇO</kbd></button><button class="ctl" data-act="cams"><span class="led"></span><svg viewBox="0 0 24 24"><rect x="3" y="7" width="13" height="9" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M16 10l5-3v9l-5-3z" fill="currentColor" opacity=".5"/><circle cx="7" cy="11.5" r="1.5" fill="currentColor"/></svg><span class="lbl">Câmeras</span><kbd>S</kbd></button><button class="ctl" data-act="doorR"><span class="led"></span><svg viewBox="0 0 24 24"><path d="M4 21V3h16v18" fill="none" stroke="currentColor" stroke-width="2"/><path d="M7 21V6h10v15z" fill="currentColor" opacity=".35"/><path d="M7 9h10M7 12h10M7 15h10M7 18h10" stroke="currentColor" stroke-width="1"/></svg><span class="lbl">Porta Dir.</span><kbd>D</kbd><div class=heat></div></button></div></div>
 </section>
 
 <section id="jsScreen" class="screen"></section>
 
 <section id="gameover" class="screen center">
-  <div class="panel">
-    <div class="big" style="color:var(--blood)">Fim de jogo</div>
+  <div class="panel goCard">
+    <div class="big goTitle">Fim de jogo</div>
     <div id="goWho"></div>
     <div id="goTip"></div>
     <button class="pbtn" id="bRetry">Tentar de novo</button>
