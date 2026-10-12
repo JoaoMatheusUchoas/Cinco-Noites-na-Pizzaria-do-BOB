@@ -1,4 +1,9 @@
 /* Cinco Noites na Pizzaria do BOB 3D - lógica do jogo */
+window.addEventListener('error',function(e){
+ var d=document.getElementById('errBox');
+ if(!d){d=document.createElement('div');d.id='errBox';d.style.cssText='position:fixed;left:8px;right:8px;bottom:8px;z-index:99;background:#300;color:#fff;font:14px monospace;padding:10px;border:2px solid #f44;white-space:pre-wrap';document.body.appendChild(d);}
+ d.textContent='Erro: '+e.message+'\n'+(e.filename||'')+':'+(e.lineno||'')+'\nMande um print disso para corrigir.';
+});
 (function(){
 'use strict';
 const $=s=>document.querySelector(s);
@@ -100,7 +105,7 @@ function decode(ab){return new Promise((res,rej)=>A.ctx.decodeAudioData(ab,res,r
 async function loadOne(k,url){
  try{
   if(!A.ctx) throw 0;
-  let ab; if(url.startsWith('data:')) ab=b64ToBuf(url); else {const r=await fetch(url); if(!r.ok) throw 0; ab=await r.arrayBuffer();}
+  let ab; if(url.startsWith('data:')) ab=b64ToBuf(url); else {let r=await fetch(url).catch(()=>null); if((!r||!r.ok)&&url.includes('/')) r=await fetch(url.split('/').pop()); if(!r.ok) throw 0; ab=await r.arrayBuffer();}
   A.buf[k]=await decode(ab);
  }catch(e){ try{const el=new Audio(url);el.preload='auto';A.html[k]=el;}catch(_){} }
  if(A.want.has(k)&&!A.loops[k]) A.loops[k]=play(k,{loop:true,vol:A.vol[k]});
@@ -173,7 +178,7 @@ function mat(c,extra){if(typeof c==='object')return c;const k=c+'|'+(extra?JSON.
 function mesh(geo,m,x,y,z,parent){const o=new THREE.Mesh(geo,mat(m));o.position.set(x||0,y||0,z||0);if(parent)parent.add(o);return o;}
 function box(w,h,d,c,x,y,z,parent){return mesh(new THREE.BoxGeometry(w,h,d),c,x,y,z,parent);}
 function slab(x1,x2,y1,y2,z1,z2,c,parent){return box(x2-x1,y2-y1,z2-z1,c,(x1+x2)/2,(y1+y2)/2,(z1+z2)/2,parent);}
-function ctex(w,h,draw){const c=document.createElement('canvas');c.width=w;c.height=h;const x=c.getContext('2d');draw(x,w,h);const t=new THREE.CanvasTexture(c);t.magFilter=THREE.NearestFilter;t.minFilter=THREE.NearestFilter;t.userData.ctx=x;return t;}
+function ctex(w,h,draw){const c=document.createElement('canvas');c.width=w;c.height=h;const x=c.getContext('2d');draw(x,w,h);const t=new THREE.CanvasTexture(c);t.magFilter=THREE.NearestFilter;t.minFilter=THREE.NearestFilter;if(!t.userData)t.userData={};t.userData.ctx=x;return t;}
 function plane(w,h,tex,x,y,z,ry,parent,basic){const m=basic?new THREE.MeshBasicMaterial({map:tex}):new THREE.MeshPhongMaterial({map:tex,shininess:0});const o=new THREE.Mesh(new THREE.PlaneGeometry(w,h),m);o.position.set(x,y,z);o.rotation.y=ry||0;parent.add(o);return o;}
 
 /* ---------- textures ---------- */
