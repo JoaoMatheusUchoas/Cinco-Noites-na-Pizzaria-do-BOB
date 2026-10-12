@@ -8,8 +8,7 @@ html,body{height:100%;background:var(--bg);color:var(--fg);font-family:'VT323',u
 button{font-family:inherit;cursor:pointer}
 button:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
 #gl{position:fixed;inset:0;width:100%;height:100%;display:block;image-rendering:pixelated;z-index:0}
-#gl.cctv{filter:sepia(.4) hue-rotate(55deg) saturate(.6) contrast(1.2) brightness(.95)}
-#noise{position:fixed;inset:0;width:100%;height:100%;image-rendering:pixelated;pointer-events:none;z-index:1;opacity:0}
+#noise{display:none}
 #app{position:relative;width:100%;height:100%;z-index:2}
 .screen{position:absolute;inset:0;display:none}
 .screen.active{display:flex}
@@ -123,3 +122,125 @@ kbd{font-family:inherit;border:1px solid #4a3a2c;padding:0 5px;color:var(--amber
 #goTip{font-size:24px;margin:16px 0 26px}
 #winClock{font-size:clamp(80px,16vw,170px);line-height:1}
 @media (prefers-reduced-motion: reduce){#maskOv.on,#itsme.on,.rec{animation:none}}
+
+#zigBox{margin-top:8px}
+#zigBox .zlbl{color:#ff8a94;font-size:18px}
+#zigBox .zbar{height:14px;border:2px solid #ff4060;background:#1a0508;margin:4px 0 6px}
+#zigFill{height:100%;width:100%;background:#5fcf5f}
+#crankBtn{width:100%;background:#3a0d14;border:2px solid #ff4060;color:#ffd0d6;font-size:22px;padding:6px;touch-action:none}
+#crankBtn.held{background:#7a1a28}
+#crankBtn:disabled{opacity:.35}
+
+/* ---- telefone ---- */
+#intro{background:radial-gradient(ellipse at 30% 50%,#1a1012 0%,rgba(3,2,3,.94) 60%);align-items:center;justify-content:center;padding:20px}
+.introWrap{display:flex;gap:clamp(18px,4vw,56px);align-items:center;max-width:980px;width:100%}
+#phone{position:relative;width:min(230px,34vw);flex:none;filter:drop-shadow(0 18px 30px #000)}
+#phone svg{width:100%;display:block}
+#phone.ringing{animation:ringShake .1s infinite}
+#phone.ringing #phScreen{animation:scrGlow .5s steps(2) infinite}
+@keyframes ringShake{0%{transform:rotate(-3deg)}50%{transform:rotate(3deg) translateY(-2px)}100%{transform:rotate(-3deg)}}
+@keyframes scrGlow{50%{fill:#cfff9a}}
+#phone.talking #phScreen{fill:#a8dc80}
+.ringWaves{position:absolute;top:2%;right:-8%;width:40%;height:30%;pointer-events:none;opacity:0}
+#phone.ringing .ringWaves{opacity:1}
+.ringWaves i{position:absolute;left:0;top:30%;width:100%;height:40%;border:3px solid #ffd166;border-left:none;border-bottom:none;border-radius:0 60% 0 0;animation:wave 1s infinite;opacity:0}
+.ringWaves i:nth-child(2){animation-delay:.25s}.ringWaves i:nth-child(3){animation-delay:.5s}
+@keyframes wave{0%{transform:scale(.4);opacity:1}100%{transform:scale(1.2);opacity:0}}
+#callBox{flex:1;text-align:left}
+#callBox .big{font-size:clamp(44px,8vw,86px)}
+#introSub{font-size:26px;color:var(--dim)}
+#callBox .call{min-height:200px;max-height:46vh;position:relative;background:linear-gradient(#0e0b09,#0a0807);border-color:#3a2a1e}
+#callBox.waiting .call::after{content:'Telefone tocando...';position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:var(--amber);font-size:28px;animation:blink 1s steps(2) infinite}
+.callBtns{display:flex;flex-wrap:wrap;gap:6px}
+.pbtn.ans{background:#123a18;border-color:#49c06a;animation:pulse 1s infinite}
+@keyframes pulse{50%{box-shadow:0 0 18px #49c06a}}
+.tapHint{color:var(--dim);font-size:17px;margin-top:6px}
+@media (max-width:760px){.introWrap{flex-direction:column;gap:10px}#phone{width:min(150px,40vw)}#callBox{text-align:center}#callBox .call{min-height:140px;text-align:left}}
+
+/* ---- botões de controle ---- */
+#controls{padding:0 6px 8px}
+.cpanel{display:flex;gap:clamp(4px,.9vw,10px);justify-content:center;padding:8px 10px 7px;background:linear-gradient(#24201c,#100e0c);border:2px solid #3a332d;border-bottom:none;border-radius:12px 12px 0 0;box-shadow:0 -6px 24px rgba(0,0,0,.7),inset 0 1px 0 #4a423a;max-width:820px;margin:0 auto}
+.ctl{width:min(15vw,118px);height:80px;border-radius:9px;border:2px solid #0c0a09;background:linear-gradient(#3a342e,#1c1815 60%,#151210);color:#d8cfb8;box-shadow:inset 0 2px 0 rgba(255,255,255,.12),inset 0 -3px 0 rgba(0,0,0,.5),0 3px 0 #050404;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;transition:transform .05s}
+.ctl svg{width:28px;height:28px}
+.ctl .lbl{font-size:17px;line-height:1}
+.ctl kbd{font-size:13px;line-height:1;border:1px solid #4a3f35;border-radius:3px;padding:0 4px;color:#a89c84;background:#0e0c0a}
+.ctl .led{position:absolute;top:6px;right:7px;width:8px;height:8px;border-radius:50%;background:#2a1010;box-shadow:inset 0 1px 2px #000}
+.ctl:active{transform:translateY(2px)}
+.ctl.on{background:linear-gradient(#5a1a1e,#2a0c0e);color:#ffd6da}
+.ctl.on .led{background:#ff3a48;box-shadow:0 0 8px #ff3a48}
+.ctl.held{background:linear-gradient(#5a4612,#2a2008);color:#fff0c8}
+.ctl.held .led{background:#ffc83a;box-shadow:0 0 8px #ffc83a}
+.ctl.warn .led{background:#ff3a48;animation:blink .4s steps(2) infinite}
+.ctl .heat{border-radius:0 0 7px 7px}
+@media (max-width:760px){.ctl{height:68px}.ctl .lbl{font-size:13px}.ctl kbd{display:none}.ctl svg{width:24px;height:24px}}
+
+/* ---- máscara ---- */
+#maskOv .breathFog{animation:fogA 2.4s ease-in-out infinite;opacity:0}
+@keyframes fogA{0%,100%{opacity:0}45%{opacity:.9}}
+#maskOv.on{animation:maskSway 3s ease-in-out infinite}
+@keyframes maskSway{0%,100%{transform:translate(0,0) scale(1.02)}50%{transform:translate(-4px,3px) scale(1.035)}}
+.maskTag{position:absolute;bottom:110px;left:50%;transform:translateX(-50%);color:#9ab8e8;font-size:22px;letter-spacing:2px;text-shadow:0 0 8px #000;opacity:.8}
+
+/* ---- HUD ---- */
+#powerBox{display:flex;align-items:center;gap:8px;margin-top:4px}
+#powerBox .pl{font-size:18px;color:var(--dim)}
+.bat{width:110px;height:16px;border:2px solid #cfc6b0;border-radius:3px;position:relative;padding:2px;background:#0a0a0a}
+.bat::after{content:'';position:absolute;right:-6px;top:3px;width:4px;height:6px;background:#cfc6b0;border-radius:0 2px 2px 0}
+#powerFill{height:100%;width:100%;background:#7ad36a;transition:width .3s}
+#powerLbl{font-size:22px}
+#hourLbl{font-size:46px;letter-spacing:1px}
+#nightLbl{font-size:24px;color:var(--amber)}
+
+/* ---- câmeras ---- */
+#camsUI{border:none}
+#camsUI .corner{position:absolute;width:34px;height:34px;border:3px solid rgba(160,240,160,.75)}
+.c1{top:50px;left:10px;border-right:none!important;border-bottom:none!important}.c2{top:50px;right:10px;border-left:none!important;border-bottom:none!important}
+.c3{bottom:10px;left:10px;border-right:none!important;border-top:none!important}.c4{bottom:10px;right:276px;border-left:none!important;border-top:none!important}
+#camTime{position:absolute;left:18px;bottom:18px;color:var(--crt);font-size:22px;text-shadow:0 0 6px #000}
+#camSide{background:linear-gradient(rgba(8,14,8,.92),rgba(4,8,4,.92));border:2px solid #2a3a2a;border-radius:8px;box-shadow:0 0 20px #000}
+.mapb{border-radius:4px}
+#camLightBtn{width:100%;margin-top:8px;background:#1a2a14;border:2px solid #6ac05a;color:#c8f0b8;font-size:20px;padding:5px;border-radius:5px}
+#camLightBtn.on{background:#4a6a20;color:#fff;box-shadow:0 0 12px #8fe36f}
+@media (max-width:760px){.c4{right:212px}}
+
+/* ---- menu novo ---- */
+#menu{flex-direction:column;justify-content:center;padding:0 6vw;background:linear-gradient(90deg,rgba(3,2,3,.96) 0%,rgba(3,2,3,.82) 34%,rgba(3,2,3,.25) 62%,rgba(3,2,3,0) 80%)}
+.menuLeft{max-width:520px}
+.logo{margin-bottom:28px;position:relative}
+.logo .l1{display:block;font-size:clamp(20px,2.4vw,28px);color:var(--dim);letter-spacing:6px;text-transform:uppercase}
+.logo .title{font-size:clamp(38px,6.4vw,82px);line-height:.95;max-width:none;color:#f1e4c8;text-shadow:0 0 22px rgba(224,48,63,.6),4px 4px 0 #3a0610;animation:titleFlick 7s infinite}
+.logo .l2{display:block;margin-top:10px;font-family:'Special Elite','Courier New',monospace;font-size:clamp(16px,1.8vw,20px);color:var(--amber)}
+@keyframes titleFlick{0%,92%,100%{opacity:1}93%{opacity:.4}94%{opacity:1}96%{opacity:.6}}
+.mnav{display:flex;flex-direction:column;gap:6px}
+.mbtn{display:flex;align-items:center;gap:14px;width:100%;max-width:420px;padding:8px 14px;background:linear-gradient(90deg,rgba(30,20,16,.75),rgba(30,20,16,0));border:none;border-left:3px solid transparent;color:var(--fg);font-size:clamp(24px,2.6vw,32px);text-align:left;transition:background .15s,border-color .15s,transform .15s}
+.mbtn::before{display:none}
+.mbtn i{font-style:normal;width:38px;height:38px;flex:none;display:flex;align-items:center;justify-content:center;border:2px solid #4a3a2c;border-radius:6px;font-size:20px;color:var(--amber);background:#120c0a}
+.mbtn span{display:flex;flex-direction:column;line-height:1}
+.mbtn small{font-size:17px;color:var(--dim);margin-top:3px}
+.mbtn:hover,.mbtn:focus-visible{background:linear-gradient(90deg,rgba(90,20,26,.75),rgba(90,20,26,0));border-left-color:var(--blood);transform:translateX(6px);color:#fff}
+.mbtn:hover i{border-color:var(--blood);color:#fff}
+.mbtn.danger i{color:#ff6b7a;border-color:#6a1a22}
+#nightPick{margin-top:16px}
+.chip{border-radius:4px;font-size:20px}
+#stars{font-size:28px;letter-spacing:6px;text-shadow:0 0 10px rgba(242,179,61,.6)}
+.menuFoot{position:absolute;left:6vw;bottom:18px;color:var(--dim);font-size:18px}
+/* ---- textos e avisos ---- */
+#toast{top:auto;bottom:118px;width:auto;max-width:min(620px,88vw);padding:10px 18px;background:rgba(12,8,6,.88);border:1px solid #3a2a1e;border-left:4px solid var(--amber);border-radius:4px;font-size:clamp(20px,2.4vw,26px);line-height:1.15;color:#ffe2a8;text-shadow:none;opacity:0;transform:translate(-50%,10px);transition:opacity .25s,transform .25s;white-space:normal}
+#toast.on{opacity:1;transform:translate(-50%,0)}
+.call{font-family:'Special Elite','Courier New',monospace;font-size:17px;line-height:1.6;color:#e6dcc4;letter-spacing:.2px}
+.call p{margin-bottom:12px}
+.call .who{font-family:'VT323',monospace;font-size:22px;letter-spacing:1px;border-bottom:1px solid #3a2a1e;padding-bottom:6px;margin-bottom:12px}
+.call b{color:#fff2d0;font-weight:normal;text-decoration:underline;text-decoration-color:rgba(242,179,61,.5)}
+.c-sandega{color:#7ad38a!important}.c-bruna{color:#ff9a55!important}.c-fernanda{color:#ff6aaa!important}.c-xinglau{color:#ffd23f!important}.c-toco{color:#7ab4ff!important}.c-zig{color:#ff5a72!important}.c-clown{color:#9ab8ff!important}
+#callBox .call{scrollbar-width:thin;scrollbar-color:#4a3a2c transparent}
+.goCard{background:rgba(10,6,6,.9);border:1px solid #3a1a1a;padding:24px 28px;border-radius:6px;box-shadow:0 0 60px rgba(120,0,10,.35)}
+.goTitle{color:var(--blood);text-shadow:0 0 18px rgba(224,48,63,.5)}
+#goWho{font-family:'Special Elite','Courier New',monospace;font-size:clamp(22px,3vw,30px);color:#ffb0b6;margin-top:6px}
+#goTip{text-align:left;margin:18px auto 22px;max-width:520px;background:#120c0a;border-left:4px solid var(--amber);padding:12px 16px 12px 18px;font-size:20px}
+#goTip h4{font-weight:normal;color:var(--amber);font-size:24px;margin-bottom:6px}
+#goTip ol{margin-left:22px;line-height:1.35;font-family:'Special Elite','Courier New',monospace;font-size:16px;color:#e6dcc4}
+#goTip li{margin-bottom:6px}
+#camHint{position:absolute;top:92px;left:50%;transform:translateX(-50%);background:rgba(4,10,4,.75);border:1px solid #2a4a2a;color:#a8e8a0;padding:4px 12px;font-size:20px;border-radius:3px;animation:hintPulse 2s infinite}
+#camHint b{color:#fff;font-weight:normal}
+@keyframes hintPulse{50%{opacity:.55}}
+@media (max-width:760px){#menu{background:linear-gradient(0deg,rgba(3,2,3,.96) 0%,rgba(3,2,3,.85) 60%,rgba(3,2,3,.3) 100%);justify-content:flex-end;padding-bottom:50px}.mbtn{padding:5px 10px}.mbtn i{width:30px;height:30px}.menuFoot{font-size:14px}#toast{bottom:96px}}
