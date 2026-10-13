@@ -38,16 +38,16 @@ Em 1983 o seu Roberto abriu a Pizzaria do BOB, com o cachorro vermelho BOB de ma
 
 - **Olhar:** mouse nas bordas da tela, setas ← → ou arrastar a tela
 - **A / D:** porta esquerda / direita
-- **S:** câmeras, **1–8:** trocar câmera
-- **F (segurar):** lanterna no corredor
-- **V (segurar):** lanterna no duto
-- **Espaço (segurar):** máscara
-- **G (segurar, na CAM 3):** girar a cadeira do Zig
-- **E:** choque (Noite 6, com as câmeras abertas)
-- **L (com as câmeras abertas):** liga a luz da câmera (gasta energia)
-- **Ctrl + N:** pula a noite atual (útil para testar). No Chrome/Edge, que reservam o Ctrl + N, use **Ctrl + Alt + N**
+- **W (segurar):** lanterna do corredor
+- **Q (segurar):** lanterna do duto
+- **S:** abre e fecha o tablet de câmeras (ele fica na mão, ao lado, e dá para usar a lanterna junto) · **1–8:** trocar câmera
+- **F:** luz da câmera
+- **E:** choque (Noite 6)
+- **Z (segurar, na CAM 3):** rebobinar a cadeira do Zig
+- **Espaço (segurar):** máscara do BOB
+- **Ctrl + N:** pula a noite (no Chrome/Edge: **Ctrl + Alt + N**)
 
-No celular, use os botões na parte de baixo e arraste a tela para olhar.
+**Modo Dia** (Extras → Modo Dia): WASD ou setas para andar, mouse para olhar (clique para travar o mouse), Shift para correr. No celular, a metade esquerda da tela anda e a direita olha. Para sair, vá até a porta da recepção.
 
 ## Conteúdo
 
@@ -56,6 +56,27 @@ No celular, use os botões na parte de baixo e arraste a tela para olhar.
 - Galeria 3D dos animatrônicos em **Extras**
 - Progresso salvo no navegador
 - Segredos: aperte o nariz do pôster, e fique atento a eventos raros...
+
+## Modos especiais
+
+- **Noite 20/20 (Withered BOB):** na Noite personalizada, coloque todos no 20. O BOB original, meio desmontado, sai do depósito e corre de verdade pelo prédio até uma das entradas (dá para ver ele correndo nas câmeras e ouvir os passos). A cada hora outro animatrônico acorda.
+- **Modo Dia:** explore a pizzaria cheia de crianças e funcionários, com a Liga fazendo o show no palco. Saia pela recepção.
+- **Minigames 8-bit:** cada noite vencida libera uma fita que conta a história da pizzaria, jogando com um animatrônico (Xinglau, Bruna, Fernanda, Toco e Zig). Ficam também em Extras → Minigames.
+- **Extras:** galeria dos personagens em 3D (com prévia do jumpscare e troca de pose), galeria de todos os pôsteres e os controles.
+
+## Sons opcionais (pesquisados)
+
+O jogo já funciona com os sons atuais. Se você colocar estes arquivos na pasta `sounds/`, eles substituem os sons sintetizados. Todos são CC0 (domínio público) no BigSoundBank:
+
+| Arquivo esperado | Uso no jogo | Sugestão |
+|---|---|---|
+| `alarme.mp3` | Avisos de perigo (Zig fugindo, energia baixa, fases do chefe) | "Evacuation Alarm #1" — https://bigsoundbank.com/evacuation-alarm-1-s3411.html |
+| `dia_ambiente.mp3` | Fundo do Modo Dia | "Children in the garden of plants" — https://bigsoundbank.com/enfants-aux-jardin-des-plantes-s1003.html |
+| `risadas_criancas.mp3` | Risadas no Modo Dia | "Laughter of children" — https://bigsoundbank.com/rires-d-enfants-s1660.html |
+| `fliperama.mp3` | Fliperamas no Modo Dia | "Games room #2" — https://bigsoundbank.com/games-room-2-s2675.html |
+| `withered_grito.mp3` | Grito do Withered BOB | Qualquer grito metálico/distorcido curto (ou "Robot 6" — https://bigsoundbank.com/robot-6-s1978.html) |
+
+Converta para `.mp3` se baixar em outro formato e mantenha exatamente esses nomes.
 
 ## Estrutura e onde mexer
 
@@ -81,6 +102,13 @@ Dentro do `js/game.js`, procure por:
 - `posterTex`, `drawFace` e `kidsTex`: pôsteres e desenhos das paredes.
 - `CALLS`: lore contada nas ligações do Valdir (aparece digitada ao lado do celular).
 - `STEPS`: passo a passo mostrado quando você morre.
+- `updateWB` e `WB_WAKE`: a noite do Withered BOB e quem acorda em cada hora.
+- `startDay`, `makePerson`, `DN`/`DE`: o Modo Dia, as pessoas e os caminhos delas.
+- `MAP_ROOMS` e `buildMap`: o mapa do tablet de câmeras.
+- `MINIS` e `MAPS`: os minigames 8-bit (mapas, falas e lore).
+- `WB_RAW`: os caminhos que o Withered BOB corre.
+- `clownStep` e `wbStep`: as músicas dos dois chefes. `ambientEvent`: barulhos aleatórios da noite.
+- `TARP_UP` / `TARP_DOWN`: a lona do depósito (noites 4-5 / noite 6).
 - `mergeGroupMeshes`: junta as peças dos modelos para o jogo rodar mais leve.
 - `ATK`: quantos segundos o jogador tem para se defender em cada noite.
 - `HOUR_LEN`: duração de cada hora do jogo em segundos (padrão 72).
