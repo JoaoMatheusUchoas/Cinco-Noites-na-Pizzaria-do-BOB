@@ -4,9 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Cinco Noites na Pizzaria do BOB 3D</title>
+<meta name="description" content="Fangame de terror estilo FNAF em 3D low poly: sobreviva às noites na Pizzaria do BOB e descubra o que vive nos fios do prédio.">
+<meta name="theme-color" content="#0a0605">
+<meta property="og:title" content="Cinco Noites na Pizzaria do BOB 3D">
+<meta property="og:description" content="Sobreviva às noites na Pizzaria do BOB. Não volte mais aqui.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍕</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Nosifer&family=Special+Elite&family=VT323&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Nosifer&family=Special+Elite&family=Old+Standard+TT:wght@400;700&family=VT323&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css" onerror="this.onerror=null;this.href='style.css'">
 </head>
 <body>
@@ -23,6 +28,7 @@
 </section>
 
 <section id="menu" class="screen">
+  <div class="verTag">v1.1 · versão final</div>
   <div class="menuLeft">
     <div class="logo">
       <span class="l1">Cinco noites na</span>
@@ -34,10 +40,13 @@
       <button class="mbtn" id="bCont"><i>⟲</i><span>Continuar<small id="contSub"></small></span></button>
       <button class="mbtn danger" id="bSix"><i>☠</i><span>Noite 6<small>O Sr. Gargalhada espera</small></span></button>
       <button class="mbtn" id="bCustom"><i>⚙</i><span>Noite personalizada<small>Escolha quem acorda</small></span></button>
-      <button class="mbtn" id="bExtras"><i>★</i><span>Extras<small>Animatrônicos e controles</small></span></button>
+      <button class="mbtn" id="bExtras"><i>★</i><span>Extras<small>Personagens, fitas, jornais, modo dia</small></span></button>
+      <button class="mbtn" id="bCredits"><i>🎬</i><span>Créditos<small>Quem fez a pizzaria</small></span></button>
+      <button class="mbtn" id="bSettings"><i>🔧</i><span>Configurações<small>Som, teclas e imagem</small></span></button>
     </nav>
     <div id="nightPick"></div>
-    <div id="stars"></div>
+    <div id="stars" title=""></div>
+    <div id="loadTag"></div>
   </div>
   <div class="menuFoot">🎧 Jogue com fone de ouvido · os passos mostram de onde eles vêm</div>
 </section>
@@ -48,7 +57,8 @@
     <div class="exTabs">
       <button data-tab="chars" class="on">Personagens</button>
       <button data-tab="posters">Pôsteres</button>
-      <button data-tab="mini">Minigames</button>
+      <button data-tab="mini">Fitas</button>
+      <button data-tab="news">Jornais</button>
       <button data-tab="day">Modo Dia</button>
       <button data-tab="ctrl">Controles</button>
     </div>
@@ -62,6 +72,7 @@
     </div>
     <div id="tab-posters" class="exTab"><p class="exLead">Todos os pôsteres e papéis espalhados pela pizzaria. Toque para ampliar.</p><div id="posterGrid"></div></div>
     <div id="tab-mini" class="exTab"><p class="exLead">Fitas 8-bit escondidas que contam o que aconteceu na pizzaria. Cada noite vencida libera uma.</p><div id="miniList"></div></div>
+    <div id="tab-news" class="exTab"><p class="exLead">Recortes guardados numa gaveta do escritório. Alguém sublinhou algumas palavras.</p><div id="newsPick"></div><div id="newsPaper"></div></div>
     <div id="tab-day" class="exTab">
       <p class="exLead">A Pizzaria do BOB num sábado à tarde: crianças correndo, funcionários trabalhando e a Liga Mistério fazendo o show no palco.</p>
       <p class="exLead">Ande livremente pelo salão, pela cozinha, pelos corredores e pelo seu escritório. Para ir embora, saia pela porta da <b>recepção</b>.</p>
@@ -185,6 +196,20 @@
       </div>
     </div>
   </div>
+  <button id="pauseBtn" title="Pausar (Esc)">⏸</button>
+  <div id="pauseOv" class="hidden"><div class="panel">
+    <div class="big" style="font-size:clamp(44px,8vw,72px)">PAUSADO</div>
+    <p class="pauseNote">O tempo parou. Eles também. Por enquanto.</p>
+    <div class="pauseVol">
+      <label>Geral <input type="range" min="0" max="100" data-pv="master"></label>
+      <label>Música <input type="range" min="0" max="100" data-pv="music"></label>
+      <label>Efeitos <input type="range" min="0" max="100" data-pv="sfx"></label>
+      <label>Ambiente <input type="range" min="0" max="100" data-pv="amb"></label>
+    </div>
+    <button class="pbtn" id="bResume">Continuar</button>
+    <button class="pbtn alt" id="bRestart">Recomeçar a noite</button>
+    <button class="pbtn alt" id="bQuit">Sair para o menu</button>
+  </div></div>
   <div id="hud">
     <div>
       <div id="nightLbl">Noite 1</div>
@@ -233,11 +258,58 @@
   <div class="miniHint">Setas/WASD: andar · Espaço: falar/continuar</div>
 </section>
 
+<section id="credits" class="screen">
+  <div id="credRoll">
+    <div class="cBig">CINCO NOITES NA<br>PIZZARIA DO BOB</div>
+    <div class="cSec">Uma fangame de terror</div>
+    <h4>Ideia, história e direção</h4><p>O criador da pizzaria (você!)</p>
+    <h4>Personagens</h4><p>A Liga Mistério: Sandega, Bruna, Fernanda, Xinglau, Toco e Zig<br>inspirados no canal Xinglau / Liga Mistério</p>
+    <p>Sr. Gargalhada · Withered BOB · BOB Dourado<br>e alguém que não aparece nos créditos</p>
+    <h4>Músicas</h4><p>Tema do Withered BOB<br>Tema do Sr. Gargalhada<br>Sem Energia<br><small>enviadas pelo criador</small></p>
+    <h4>Sons</h4><p>Arquivos do projeto e efeitos sintetizados no navegador<br><small>sugestões extras CC0: BigSoundBank</small></p>
+    <h4>Tecnologia</h4><p>Three.js r128 · Web Audio API · muito pixel</p>
+    <h4>Programação e arte procedural</h4><p>Feito com a ajuda do Claude (Anthropic)</p>
+    <h4>Inspiração</h4><p>Five Nights at Freddy's, de Scott Cawthon.<br><small>Projeto de fã, sem fins lucrativos e sem ligação com os donos da série.</small></p>
+    <div class="cSec" style="margin-top:60px">Obrigado por jogar.</div>
+    <div class="cEnd">Não volte mais aqui.</div>
+  </div>
+  <button class="pbtn alt" id="bCredBack">Voltar</button>
+</section>
+<section id="cut" class="screen"><div id="cutSub"></div><div id="cutSkip">clique ou ESPAÇO para pular</div></section>
+<section id="settings" class="screen center">
+  <div class="panel setPanel">
+    <div class="big" style="font-size:clamp(40px,7vw,64px)">Configurações</div>
+    <div class="setGrid">
+      <div class="setCol">
+        <h3>Som</h3>
+        <label>Volume geral <input type="range" min="0" max="100" data-set="master"><span></span></label>
+        <label>Música <input type="range" min="0" max="100" data-set="music"><span></span></label>
+        <label>Efeitos <input type="range" min="0" max="100" data-set="sfx"><span></span></label>
+        <label>Ambiente e câmeras <input type="range" min="0" max="100" data-set="amb"><span></span></label>
+        <h3>Imagem</h3>
+        <label>Resolução PS1 <select data-set="res"><option value="180">180 linhas (bem retrô)</option><option value="240">240 linhas (padrão)</option><option value="360">360 linhas</option><option value="480">480 linhas (nítido)</option></select></label>
+        <label>Tremer a tela <input type="checkbox" data-set="shake"></label>
+      </div>
+      <div class="setCol">
+        <h3>Teclas</h3>
+        <div id="bindList"></div>
+        <p class="setHint">Clique numa ação e aperte a nova tecla.</p>
+      </div>
+    </div>
+    <button class="pbtn alt" id="bSetReset">Restaurar padrão</button>
+    <button class="pbtn alt" id="bWipe">🗑 Apagar progresso</button>
+    <button class="pbtn alt" id="bWipe">🗑 Apagar progresso</button>
+    <button class="pbtn" id="bSetBack">Voltar</button>
+  </div>
+</section>
 <section id="bosswin" class="screen center">
   <div class="panel">
     <div class="big" style="color:var(--amber)">Você venceu</div>
-    <p style="font-size:28px;margin:18px 0 8px">O Sr. Gargalhada caiu, soltando faíscas e uma última risada.</p>
+    <p style="font-size:28px;margin:18px 0 8px">O Sr. Gargalhada foi embora. Mas o aviso dele ficou.</p>
     <p style="font-size:24px;color:var(--dim);margin-bottom:26px">A Noite personalizada foi liberada no menu. Tente o modo 20/20/20/20/20.</p>
+    <button class="pbtn mg hidden" id="bSecret">🕹 Fita secreta: 26 de outubro de 1987</button>
+    <button class="pbtn alt" id="bBossCredits">Créditos</button>
+    <button class="pbtn alt" id="bBossCred">🎬 Ver créditos</button>
     <button class="pbtn" id="bBossMenu">Voltar ao menu</button>
   </div>
 </section>

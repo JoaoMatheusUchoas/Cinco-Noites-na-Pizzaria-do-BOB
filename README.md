@@ -57,11 +57,27 @@ Em 1983 o seu Roberto abriu a Pizzaria do BOB, com o cachorro vermelho BOB de ma
 - Progresso salvo no navegador
 - Segredos: aperte o nariz do pôster, e fique atento a eventos raros...
 
+## Novidades da versão final
+
+- **Lore sutil:** as ligações, os jornais (Extras → Jornais), a foto antiga no escritório, as marcas de mão queimadas pelas paredes e a porta acorrentada do porão contam a história aos pedaços. Monte você mesmo.
+- **Cutscene final:** depois de vencer o Sr. Gargalhada, a energia acaba e ele aparece para um último aviso.
+- **Alma do Shocker:** um evento raríssimo e silencioso. Ele não ataca e não aparece nas câmeras.
+- **Configurações:** volume geral, de música, de efeitos e de ambiente, teclas configuráveis, resolução PS1 e opção de tremer a tela.
+- **Músicas próprias:** tema do Withered BOB, tema do Sr. Gargalhada e música da falta de energia.
+
+## Acabamentos (v1.1)
+
+- As dicas da tela de morte, da galeria e dos controles mostram as **suas** teclas configuradas.
+- Tutorial curtinho na primeira Noite 1.
+- Botão para **apagar o progresso** (nas Configurações, com confirmação).
+- Botão de créditos depois da batalha final e indicador de carregamento dos sons.
+- Passe o mouse nas estrelas do menu para ver o que cada uma significa.
+
 ## Modos especiais
 
 - **Noite 20/20 (Withered BOB):** na Noite personalizada, coloque todos no 20. O BOB original, meio desmontado, sai do depósito e corre de verdade pelo prédio até uma das entradas (dá para ver ele correndo nas câmeras e ouvir os passos). A cada hora outro animatrônico acorda.
 - **Modo Dia:** explore a pizzaria cheia de crianças e funcionários, com a Liga fazendo o show no palco. Saia pela recepção.
-- **Minigames 8-bit:** cada noite vencida libera uma fita que conta a história da pizzaria, jogando com um animatrônico (Xinglau, Bruna, Fernanda, Toco e Zig). Ficam também em Extras → Minigames.
+- **Fitas (minigames estilo Atari):** cada noite vencida libera uma fita com mecânica própria: entregar bolos, desviar dos holofotes, labirinto com faíscas, pega-pega de abraços e girar a cadeira no ritmo. Vencer a Noite 6 libera a fita secreta de 1987. Ficam também em Extras → Fitas.
 - **Extras:** galeria dos personagens em 3D (com prévia do jumpscare e troca de pose), galeria de todos os pôsteres e os controles.
 
 ## Sons opcionais (pesquisados)
@@ -74,6 +90,7 @@ O jogo já funciona com os sons atuais. Se você colocar estes arquivos na pasta
 | `dia_ambiente.mp3` | Fundo do Modo Dia | "Children in the garden of plants" — https://bigsoundbank.com/enfants-aux-jardin-des-plantes-s1003.html |
 | `risadas_criancas.mp3` | Risadas no Modo Dia | "Laughter of children" — https://bigsoundbank.com/rires-d-enfants-s1660.html |
 | `fliperama.mp3` | Fliperamas no Modo Dia | "Games room #2" — https://bigsoundbank.com/games-room-2-s2675.html |
+| `choque.mp3` | Faíscas e choque | "Electric strike #3" — https://bigsoundbank.com/electric-strike-3-s3444.html |
 | `withered_grito.mp3` | Grito do Withered BOB | Qualquer grito metálico/distorcido curto (ou "Robot 6" — https://bigsoundbank.com/robot-6-s1978.html) |
 
 Converta para `.mp3` se baixar em outro formato e mantenha exatamente esses nomes.
